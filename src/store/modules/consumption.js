@@ -1,42 +1,65 @@
 
 
 const state = {
-	consumptionList: []
+	consumptionList: [],
+	totalCost: []
 };
 const getters = {
 	getConsumptionList: state => {
-	    const list = window.localStorage.getItem('CONSUMPTION_LIST');
+	    let list = window.localStorage.getItem('CONSUMPTION_LIST');
 
-	    console.log('Мы в геттере :', list)
 	    if (list === null) {
-			return state.consumptionList;
+			state.consumptionList = [];
         }
+		state.consumptionList = JSON.parse(list);
 
-        return JSON.parse(list);
+        return state.consumptionList;
     }
 };
 const mutations = {
 	consumptionList: (state, payload) => {
 		window.localStorage.setItem('CONSUMPTION_LIST', JSON.stringify(payload));
-		state.consumptionList = window.localStorage.getItem('CONSUMPTION_LIST');
+		state.consumptionList = JSON.parse(window.localStorage.getItem('CONSUMPTION_LIST'));
 	}
 };
 
 const actions = {
-    addToConsumptionList: async (context, payload) => {
+    addToConsumptionList: (context, payload) => {
         const list = context.getters['getConsumptionList'];
         list.push(payload);
         context.commit('consumptionList', list);
     },
     deleteFromConsumptionList: async (context, payload) => {
-        console.log('context ', context)
 		let list = context.getters['getConsumptionList'];
 		list = list.filter(el => el.id !== payload);
-		console.log('Стало: ', list.length);
 		context.commit('consumptionList', list);
-		list = context.getters['getConsumptionList'];
-		console.log('Стало после геттера: ', list.length);
+	},
+	getFromConsumptionList: async (context, payload) => {
+		let list = context.getters['getConsumptionList'];
+		let index = '';
+		const isExist = list.some((el, i) => {
+			if (String(el.id) === payload) {
+				index = i;
+				return true;
+			}
+			return false;
+		});
 
+		return isExist ? list[index] : null;
+	},
+	editFromConsumptionList: async (context, payload) => {
+		let list = context.getters['getConsumptionList'];
+		let index = '';
+		const isExist = list.some((el, i) => {
+			if (el.id === payload.id) {
+				list[i] = payload;
+				return true;
+			}
+			return false;
+		});
+
+		context.commit('consumptionList', list);
+		return isExist ? list[index] : null;
 	}
 };
 export default {

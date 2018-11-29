@@ -7,15 +7,22 @@
                 lang="ru"
                 v-model="time"
         ></date-picker>
-        <input type="number" placeholder="Сумма" @change="onSumChanged"/>
-        <input type="text" placeholder="Описание" @change="onDescriptionChanged"/>
+        <input
+            type="number"
+            placeholder="Сумма"
+            v-model="sum"
+            />
+        <input
+            type="text"
+            placeholder="Описание"
+            v-model="description"/>
     </div>
 </template>
 
 <script>
+	import moment from 'moment';
 
-
-    export default {
+	export default {
         name: 'ConsumptionAdd',
         props: {
             msg: String,
@@ -27,29 +34,20 @@
 				description: ''
             }
         },
-        mounted() {
-
-        },
         methods: {
-			onSumChanged (e) {
-                this.sum = e.target.value;
-            },
 			onClickHandler () {
                 if (!this.time) {
-                    this.time = Date.now();
+                    this.time = moment().format('YYYY-MM-DD');
                 }
 
                 const record = {
                 	id: Date.now(),
-                    time: this.time,
+                    time: moment(this.time).format('YYYY-MM-DD'),
                     description: this.description,
                     sum: this.sum
                 };
 
 				this.$store.dispatch('addToConsumptionList', record);
-            },
-			onDescriptionChanged (e) {
-				this.description = e.target.value;
             }
         }
     }

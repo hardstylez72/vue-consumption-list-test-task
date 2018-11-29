@@ -1,5 +1,6 @@
-import ConsumptionList from '../views/Consumption/list'
-import ConsumptionAdd from '../views/Consumption/add'
+import ConsumptionList from '../views/Consumption/list';
+import ConsumptionAdd from '../views/Consumption/add';
+import ConsumptionEdit from '../views/Consumption/edit';
 
 import Vue from 'vue';
 import Router from 'vue-router';
@@ -16,6 +17,10 @@ const router = new Router({
 		{
 			path: '/add',
 			component: ConsumptionAdd,
+		},
+		{
+			path: '/edit/:id',
+			component: ConsumptionEdit,
 		},
         {
             path: '*',
