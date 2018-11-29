@@ -15,7 +15,7 @@
         <select placeholder="Сортировка" @change="onSelectSortOriginHandler">
             <option v-for="item in sortOptions" >{{item}}</option>
         </select>
-Список расходов
+        Список расходов
         <table>
             <tr>
                 <th>Время</th>
@@ -50,9 +50,7 @@
         },
         data() {
             return {
-                valid: true,
 				time: [],
-                curFilterValue: '',
                 curSortValue: 'По сумме',
                 curFilterSettings: {
                     timeFrom: '',
@@ -69,8 +67,7 @@
 							this.time = [ new Date(), new Date() ]
 						}
 					}
-				],
-                list: []
+				]
             }
         },
         computed: {
@@ -133,8 +130,9 @@
 </script>
 
 <style scoped>
-.main-container {
-    display: inline-grid;
-}
+
+    .main-container {
+        display: inline-grid;
+    }
 
 </style>

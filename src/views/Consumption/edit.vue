@@ -57,8 +57,9 @@
 </script>
 
 <style scoped>
-.main-container {
-    display: inline-grid;
-}
+
+    .main-container {
+        display: inline-grid;
+    }
 
 </style>

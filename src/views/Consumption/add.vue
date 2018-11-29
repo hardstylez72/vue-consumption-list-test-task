@@ -20,8 +20,8 @@
 </template>
 
 <script>
-	import moment from 'moment';
 
+	import moment from 'moment';
 	export default {
         name: 'ConsumptionAdd',
         props: {
@@ -54,8 +54,9 @@
 </script>
 
 <style scoped>
-.main-container {
-    display: inline-grid;
-}
+
+    .main-container {
+        display: inline-grid;
+    }
 
 </style>
