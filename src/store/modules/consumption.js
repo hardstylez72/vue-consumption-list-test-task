@@ -6,10 +6,10 @@ const state = {
 };
 const getters = {
 	getConsumptionList: state => {
-	    let list = window.localStorage.getItem('CONSUMPTION_LIST');
+		let list = window.localStorage.getItem('CONSUMPTION_LIST');
 
-	    if (list === null) {
-			state.consumptionList = [];
+	if (list === null) {
+			return [];
         }
 		state.consumptionList = JSON.parse(list);
 

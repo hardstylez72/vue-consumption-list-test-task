@@ -27,8 +27,8 @@
         },
         data() {
             return {
-            	origin: {
-            		id: null,
+                origin: {
+                id: null,
 					time: '',
 					sum: null,
 					description: ''
@@ -44,8 +44,8 @@
         mounted() {
 			this.$store.dispatch('getFromConsumptionList', this.$route.params.id)
                 .then(el => {
-                	this.origin = el;
-                	this.cur = Object.assign({}, this.origin);
+                    this.origin = el;
+                    this.cur = Object.assign({}, this.origin);
                 })
         },
         methods: {

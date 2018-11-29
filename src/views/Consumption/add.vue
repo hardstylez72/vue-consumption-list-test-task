@@ -41,7 +41,7 @@
                 }
 
                 const record = {
-                	id: Date.now(),
+                    id: Date.now(),
                     time: moment(this.time).format('YYYY-MM-DD'),
                     description: this.description,
                     sum: this.sum

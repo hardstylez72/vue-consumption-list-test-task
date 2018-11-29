@@ -13,10 +13,11 @@
         Общая сумма расходов: {{getTotalSum}} <br>
         Сортировка
         <select placeholder="Сортировка" @change="onSelectSortOriginHandler">
-            <option v-for="item in sortOptions" >{{item}}</option>
+            <option v-for="item in sortOptions">{{item}}</option>
         </select>
-        Список расходов
-        <table>
+        <div class="consumption-list-content">
+            Список расходов
+        <table class="consumption-table">
             <tr>
                 <th>Время</th>
                 <th>Описание</th>
@@ -37,6 +38,7 @@
                 </td>
             </tr>
         </table>
+        </div>
     </div>
 </template>
 
@@ -71,22 +73,25 @@
             }
         },
         computed: {
-        	getFilteredAndSortedList() {
+            getFilteredAndSortedList() {
 				let list = this.getList;
 
-			    if (this.time.length) {
-			    	list = list.filter(el => moment(el.time).isBetween(moment(this.time[0]), moment(this.time[1])));
+				if (list === null) {
+                    return [];
+                }
+                if (this.time.length) {
+                    list = list.filter(el => moment(el.time).isBetween(moment(this.time[0]), moment(this.time[1])));
                 }
 
 				switch (this.curSortValue) {
                     case this.sortOptions[0]:
 						list = this.sortBySum(list);
-                    	break;
+                        break;
                     case this.sortOptions[1]:
 						list = this.sortByDate(list);
 						break;
                     default:
-                    	break;
+                        break;
                 }
                 return list;
             },
@@ -105,7 +110,7 @@
             }
         },
         methods: {
-        	sortBySum (list) {
+            sortBySum (list) {
                 list.sort((a, b) => Number(b.sum) - Number(a.sum));
                 return list;
             },
@@ -120,7 +125,7 @@
                 this.$router.push(`/edit/${id}`);
             },
             onSelectSortOriginHandler (e) {
-        		this.curSortValue = e.target.value;
+                this.curSortValue = e.target.value;
             },
 			onClickHandler () {
 				this.$router.push('/add');
@@ -133,6 +138,12 @@
 
     .main-container {
         display: inline-grid;
+    }
+    .consumption-table {
+        margin-top: 20px;
+    }
+    .consumption-list-content {
+        margin-top: 40px;
     }
 
 </style>
